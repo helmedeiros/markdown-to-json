@@ -1,5 +1,14 @@
 
-var converter = new TableConverter();
+var converter;
+var expectedHeads;
+
+QUnit.testStart(function( details ) {
+  console.log( "Now running: ", details.module, details.name );
+  
+  converter = new TableConverter();
+  expectedHeads = ["numero","Historias tarefas","Back","Front","SEO","QA"];
+  
+});
 
 /* Should get the row's headings */
 test('should return headings whithout thead', function(){
@@ -25,9 +34,7 @@ test('should return headings whithout thead', function(){
       '</table>'
     );
 
-  
-  var expected = ["numero","Historias tarefas","Back","Front","SEO","QA"];
-  assertHeadings(table, expected);
+  assertHeadings(table, expectedHeads);
 });
 
 /* Should get the row's headings */
@@ -58,8 +65,7 @@ test('should return headings whith thead', function(){
       '</table>'
     );
 
-  var expected = ["numero","Historias tarefas","Back","Front","SEO","QA"];
-  assertHeadings(table, expected);
+  assertHeadings(table, expectedHeads);
 });
 
 /* Should get the row's headings */
@@ -84,9 +90,8 @@ test('should return headings with td as columns instead of th', function(){
           '</tr>' +
       '</table>'
     );
-
   
-  assertHeadings(table, expected);
+  assertHeadings(table, expectedHeads);
 
 });
 
