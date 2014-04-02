@@ -2,18 +2,15 @@
 module('TableConverter');
 
 var converter;
-var expectedHeads;
-var expectedJSON;
+var expectedHeads = ["numero","Historias tarefas","Back","Front","SEO","QA"];
+var expectedJSON = [{'numero':'35', 'Historias tarefas':'Publicação flip AN e SOL', 'Back':'', 'Front':'', 'SEO':'', 'QA':'7'},
+                  {'numero':'35.1', 'Historias tarefas':'Criação da Gmud', 'Back':'7', 'Front':'7', 'SEO':'7', 'QA':'7'},
+                  {'numero':'35.2', 'Historias tarefas':'Execução da Gmud', 'Back':'', 'Front':'', 'SEO':'', 'QA':''}];
 
 QUnit.testStart(function( details ) {
   console.log( "Now running: ", details.module, details.name );
   
-  converter = new TableConverter();
-  expectedHeads = ["numero","Historias tarefas","Back","Front","SEO","QA"];
-  expectedJSON = [{'numero':'35', 'Historias tarefas':'Publicação flip AN e SOL', 'Back':'', 'Front':'', 'SEO':'', 'QA':'7'},
-                  {'numero':'35.1', 'Historias tarefas':'Criação da Gmud', 'Back':'7', 'Front':'7', 'SEO':'7', 'QA':'7'},
-                  {'numero':'35.2', 'Historias tarefas':'Execução da Gmud', 'Back':'', 'Front':'', 'SEO':'', 'QA':''}];
-  
+  converter = new TableConverter();  
 });
 
 /* Should get the row's headings */
@@ -139,7 +136,7 @@ test('should convert the html table to json', function() {
           '</tr>' +
       '</table>'
     );
-  
+
   assertJSON(table, expectedJSON);
 });
 
