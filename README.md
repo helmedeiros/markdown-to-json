@@ -12,7 +12,7 @@ This library will transform markups also tables to json files.
 
 ### Example usage
 ```html
-  <table>
+  <table id="my-table-id">
     <thead>
       <tr>
         <th>n°</th>
