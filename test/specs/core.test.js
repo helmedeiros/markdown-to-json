@@ -1,3 +1,6 @@
+
+var converter = new TableConverter();
+
 /* Should get the row's headings */
 test('should return headings whithout thead', function(){
 
@@ -22,12 +25,10 @@ test('should return headings whithout thead', function(){
       '</table>'
     );
 
-  var converter = new TableConverter();
+  
   var headings = converter.getHeadings(table);
-  debugger;
   var expected = ["numero","Historias tarefas","Back","Front","SEO","QA"];
   deepEqual(headings, expected);
-
 });
 
 /* Should get the row's headings */
@@ -58,10 +59,37 @@ test('should return headings whith thead', function(){
       '</table>'
     );
 
-  var converter = new TableConverter();
   var headings = converter.getHeadings(table);
-  debugger;
+  var expected = ["numero","Historias tarefas","Back","Front","SEO","QA"];
+  deepEqual(headings, expected);
+});
+
+/* Should get the row's headings */
+test('should return headings with td as columns instead of th', function(){
+  var table = $(
+      '<table id="test-table">' +
+        '<tr>' +
+          '<td>numero</td>' +
+          '<td>Historias tarefas</td>' +
+          '<td>Back</td>' +
+          '<td>Front</td>' +
+          '<td>SEO</td>' +
+          '<td>QA</td>' +
+        '</tr>' +
+        '<tr>' +
+            '<td>35</td>' +
+            '<td>Publicação flip AN e SOL</td>' +
+            '<td></td>' +
+            '<td></td>' +
+            '<td></td>' +
+            '<td>7</td>' +
+          '</tr>' +
+      '</table>'
+    );
+
+  var headings = converter.getHeadings(table);
   var expected = ["numero","Historias tarefas","Back","Front","SEO","QA"];
   deepEqual(headings, expected);
 
 });
+
