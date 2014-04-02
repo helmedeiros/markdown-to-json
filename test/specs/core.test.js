@@ -26,9 +26,8 @@ test('should return headings whithout thead', function(){
     );
 
   
-  var headings = converter.getHeadings(table);
   var expected = ["numero","Historias tarefas","Back","Front","SEO","QA"];
-  deepEqual(headings, expected);
+  assertHeadings(table, expected);
 });
 
 /* Should get the row's headings */
@@ -59,9 +58,8 @@ test('should return headings whith thead', function(){
       '</table>'
     );
 
-  var headings = converter.getHeadings(table);
   var expected = ["numero","Historias tarefas","Back","Front","SEO","QA"];
-  deepEqual(headings, expected);
+  assertHeadings(table, expected);
 });
 
 /* Should get the row's headings */
@@ -87,9 +85,13 @@ test('should return headings with td as columns instead of th', function(){
       '</table>'
     );
 
-  var headings = converter.getHeadings(table);
-  var expected = ["numero","Historias tarefas","Back","Front","SEO","QA"];
-  deepEqual(headings, expected);
+  
+  assertHeadings(table, expected);
 
 });
+
+var assertHeadings = function(table, expected){
+  var headings = converter.getHeadings(table);
+  deepEqual(headings, expected);  
+};
 
