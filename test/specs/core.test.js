@@ -1,4 +1,6 @@
 
+module('TableConverter');
+
 var converter;
 var expectedHeads;
 
