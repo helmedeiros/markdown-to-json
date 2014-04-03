@@ -1,4 +1,4 @@
-function TableConverter() {};
+var TableConverter = function() {};
 
 
 TableConverter.prototype = {
