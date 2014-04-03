@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+
   'use strict';
 
   var srcScript = 'src/tableconverter.js';
@@ -7,6 +8,10 @@ module.exports = function(grunt) {
 
     jshint: {
       files: [srcScript]
+    },
+
+    qunit: {
+      all: ['test/runner.html']
     },
 
     uglify: {
@@ -21,10 +26,11 @@ module.exports = function(grunt) {
 
   [
     'grunt-contrib-jshint',
-    'grunt-contrib-uglify'
+    'grunt-contrib-uglify',
+    'grunt-contrib-qunit'
   ].forEach(grunt.loadNpmTasks);
 
-  grunt.registerTask('test', ['jshint']);
+  grunt.registerTask('test', ['jshint', 'qunit']);
   grunt.registerTask('minify', ['uglify']);
 
 };
