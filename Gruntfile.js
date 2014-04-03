@@ -32,5 +32,5 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['jshint', 'qunit']);
   grunt.registerTask('minify', ['uglify']);
-
+  grunt.registerTask('default', ['jshint', 'qunit', 'uglify']);
 };
