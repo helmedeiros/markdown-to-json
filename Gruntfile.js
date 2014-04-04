@@ -20,6 +20,13 @@ module.exports = function(grunt) {
           'src/default.min.js': srcScript
         }
       }
+    },
+
+    watch: {
+      minify: {
+        files: srcScript,
+        tasks: ['uglify:build']
+      }
     }
 
   });
@@ -27,6 +34,7 @@ module.exports = function(grunt) {
   [
     'grunt-contrib-jshint',
     'grunt-contrib-uglify',
+    'grunt-contrib-watch',
     'grunt-contrib-qunit'
   ].forEach(grunt.loadNpmTasks);
 
