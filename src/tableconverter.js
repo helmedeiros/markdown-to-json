@@ -2,11 +2,14 @@
 
     'use strict';
 
-    var TableConverter = function() {};
+    var TableConverter = function(table) {
+        this.elements = {};
+        this.elements.table = table;
+    };
 
     TableConverter.prototype = {
-        getHeadings: function(table) {
-            var firstRow = table.find('tr:first').first();
+        getHeadings: function() {
+            var firstRow = this.elements.table.find('tr:first').first();
             return this.rowValues(firstRow);
         },
 
@@ -18,7 +21,7 @@
             return result;
         }, 
 
-        createJSON: function(table, headings) {
+        createJSON: function(headings) {
             var result = [];
 
             var createTableArray = function(rowIndex, row){
@@ -27,7 +30,7 @@
                 }
             };
 
-            table.children('tbody,*').children('tr').each($.proxy(createTableArray,this));
+            this.elements.table.children('tbody,*').children('tr').each($.proxy(createTableArray,this));
             return result;
         }, 
 
@@ -41,10 +44,10 @@
             return result;
         },
 
-        htmlToJSON: function(table){
+        htmlToJSON: function(){
           // Run
-          var headings = this.getHeadings(table);
-          return this.createJSON(table, headings);
+          var headings = this.getHeadings(this.elements.table);
+          return this.createJSON(headings, headings);
         }
     };
 
