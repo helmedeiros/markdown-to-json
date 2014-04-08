@@ -1,4 +1,4 @@
-(function (global, $) {
+(function (global) {
 
     'use strict';
 
@@ -28,12 +28,6 @@
         createJSON: function(headings) {
             var result = [];
 
-            // var createTableArray = function(rowIndex, row){
-            //     if (rowIndex) {
-            //         result[result.length] = this.arraysToHash(headings, this.rowValues(row));                
-            //     }
-            // };
-
             var elements = this.elements.table.firstChild.children;
             
             for(var i=1, size=elements.length; size > i; i++) {
@@ -42,7 +36,6 @@
                 result.push(hash);
             }
 
-            // this.elements.table.children('tbody,*').children('tr').each($.proxy(createTableArray,this));
             return result;
         }, 
 
@@ -67,5 +60,5 @@
 
     global.TableConverter = TableConverter;
 
-}(window, jQuery));
+}(window));
 
