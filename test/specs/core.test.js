@@ -3,14 +3,9 @@ module('TableConverter');
 
 var converter;
 var expectedHeads = ["numero","Historias tarefas","Back","Front","SEO","QA"];
-var expectedJSON = [{'numero':'35', 'Historias tarefas':'Publicação flip AN e SOL', 'Back':'', 'Front':'', 'SEO':'', 'QA':'7'},
-                  {'numero':'35.1', 'Historias tarefas':'Criação da Gmud', 'Back':'7', 'Front':'7', 'SEO':'7', 'QA':'7'},
-                  {'numero':'35.2', 'Historias tarefas':'Execução da Gmud', 'Back':'', 'Front':'', 'SEO':'', 'QA':''}];
 
 QUnit.testStart(function( details ) {
   console.log( "Now running: ", details.module, details.name );
-  
-  converter = new TableConverter();  
 });
 
 /* Should get the row's headings */
@@ -35,7 +30,7 @@ test('should return headings whithout thead', function(){
             '<td>7</td>' +
           '</tr>' +
       '</table>'
-    );
+    )[0];
 
   assertHeadings(table, expectedHeads);
 });
@@ -66,12 +61,12 @@ test('should return headings whith thead', function(){
           '</tr>' +
         '</tbody>' + 
       '</table>'
-    );
+    )[0];
 
   assertHeadings(table, expectedHeads);
 });
 
-/* Should get the row's headings */
+// /* Should get the row's headings */
 test('should return headings with td as columns instead of th', function(){
   var table = $(
       '<table id="test-table">' +
@@ -92,13 +87,13 @@ test('should return headings with td as columns instead of th', function(){
             '<td>7</td>' +
           '</tr>' +
       '</table>'
-    );
+    )[0];
   
   assertHeadings(table, expectedHeads);
 
 });
 
-/* Should convert to JSON */
+//  Should convert to JSON 
 test('should convert the html table to json', function() {
   var table = $(
       '<table id="test-table">' +
@@ -135,17 +130,24 @@ test('should convert the html table to json', function() {
             '<td></td>' +
           '</tr>' +
       '</table>'
-    );
+  )[0];
+
+  var expectedJSON = [{'numero':'35', 'Historias tarefas':'Publicação flip AN e SOL', 'Back':'', 'Front':'', 'SEO':'', 'QA':'7'},
+                  {'numero':'35.1', 'Historias tarefas':'Criação da Gmud', 'Back':'7', 'Front':'7', 'SEO':'7', 'QA':'7'},
+                  {'numero':'35.2', 'Historias tarefas':'Execução da Gmud', 'Back':'', 'Front':'', 'SEO':'', 'QA':''}];
+
 
   assertJSON(table, expectedJSON);
 });
 
 var assertJSON = function(table, expected){
-  deepEqual(converter.htmlToJSON(table), expected);
+  var converter = new TableConverter(table);  
+  deepEqual(converter.htmlToJSON(), expected);
 };
 
 var assertHeadings = function(table, expected){
-  var headings = converter.getHeadings(table);
-  deepEqual(headings, expected);  
+  var converter= new TableConverter(table);
+  var headings = converter.getHeadings();
+  deepEqual(headings, expected);
 };
 
