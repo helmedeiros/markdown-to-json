@@ -36,7 +36,7 @@
 
             var elements = this.elements.table.firstChild.children;
             
-            for(var i=0, size=elements.length; size > i; i++) {
+            for(var i=1, size=elements.length; size > i; i++) {
                 var row = elements[i];
                 var hash = this.arraysToHash(headings, this.rowValues(row));
                 result.push(hash);
