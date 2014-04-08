@@ -9,38 +9,52 @@
 
     TableConverter.prototype = {
         getHeadings: function() {
-            var firstRow = this.elements.table.find('tr:first').first();
+            var firstRow = this.elements.table.firstChild.firstChild;
             return this.rowValues(firstRow);
         },
 
         rowValues: function(row) {
             var result = [];
-            $(row).children('td,th').each(function(cellIndex, cell) {
-                result[result.length] = $.trim($(cell).text());
-            });
+            var cells = row.children;
+
+            for(var i=0, size=cells.length; size > i; i++) {
+                var text = cells[i].textContent.trim();
+                result.push(text);
+            }
+            
             return result;
         }, 
 
         createJSON: function(headings) {
             var result = [];
 
-            var createTableArray = function(rowIndex, row){
-                if (rowIndex) {
-                    result[result.length] = this.arraysToHash(headings, this.rowValues(row));                
-                }
-            };
+            // var createTableArray = function(rowIndex, row){
+            //     if (rowIndex) {
+            //         result[result.length] = this.arraysToHash(headings, this.rowValues(row));                
+            //     }
+            // };
 
-            this.elements.table.children('tbody,*').children('tr').each($.proxy(createTableArray,this));
+            var elements = this.elements.table.firstChild.children;
+            
+            for(var i=0, size=elements.length; size > i; i++) {
+                var row = elements[i];
+                var hash = this.arraysToHash(headings, this.rowValues(row));
+                result.push(hash);
+            }
+
+            // this.elements.table.children('tbody,*').children('tr').each($.proxy(createTableArray,this));
             return result;
         }, 
 
         arraysToHash: function(keys, values) {
             var result = {};
-            $.each(values, function(index, value) {
+
+            values.forEach(function(value, index) {
                 if (index < keys.length) {
                     result[keys[index]] = value;
                 }
             });
+
             return result;
         },
 

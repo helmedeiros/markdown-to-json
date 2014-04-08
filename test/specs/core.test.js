@@ -30,7 +30,7 @@ test('should return headings whithout thead', function(){
             '<td>7</td>' +
           '</tr>' +
       '</table>'
-    );
+    )[0];
 
   assertHeadings(table, expectedHeads);
 });
@@ -61,12 +61,12 @@ test('should return headings whith thead', function(){
           '</tr>' +
         '</tbody>' + 
       '</table>'
-    );
+    )[0];
 
   assertHeadings(table, expectedHeads);
 });
 
-/* Should get the row's headings */
+// /* Should get the row's headings */
 test('should return headings with td as columns instead of th', function(){
   var table = $(
       '<table id="test-table">' +
@@ -87,13 +87,13 @@ test('should return headings with td as columns instead of th', function(){
             '<td>7</td>' +
           '</tr>' +
       '</table>'
-    );
+    )[0];
   
   assertHeadings(table, expectedHeads);
 
 });
 
-/* Should convert to JSON */
+//  Should convert to JSON 
 test('should convert the html table to json', function() {
   var table = $(
       '<table id="test-table">' +
@@ -130,7 +130,7 @@ test('should convert the html table to json', function() {
             '<td></td>' +
           '</tr>' +
       '</table>'
-  );
+  )[0];
 
   var expectedJSON = [{'numero':'35', 'Historias tarefas':'Publicação flip AN e SOL', 'Back':'', 'Front':'', 'SEO':'', 'QA':'7'},
                   {'numero':'35.1', 'Historias tarefas':'Criação da Gmud', 'Back':'7', 'Front':'7', 'SEO':'7', 'QA':'7'},
