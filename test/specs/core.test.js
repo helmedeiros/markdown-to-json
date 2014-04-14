@@ -8,29 +8,37 @@ QUnit.testStart(function( details ) {
   console.log( "Now running: ", details.module, details.name );
 });
 
+var createDOMInMemory = function(elements) {
+  var container = document.createElement('div');
+  container.innerHTML = elements;
+
+  return container.firstChild;
+};
+
 /* Should get the row's headings */
 test('should return headings whithout thead', function(){
 
-  var table = $(
-      '<table id="test-table">' +
-        '<tr>' +
-          '<th>numero</th>' +
-          '<th>Historias tarefas</th>' +
-          '<th>Back</th>' +
-          '<th>Front</th>' +
-          '<th>SEO</th>' +
-          '<th>QA</th>' +
-        '</tr>' +
-        '<tr>' +
-            '<td>35</td>' +
-            '<td>Publicação flip AN e SOL</td>' +
-            '<td></td>' +
-            '<td></td>' +
-            '<td></td>' +
-            '<td>7</td>' +
+  var elements =
+        '<table id="test-table">' +
+          '<tr>' +
+            '<th>numero</th>' +
+            '<th>Historias tarefas</th>' +
+            '<th>Back</th>' +
+            '<th>Front</th>' +
+            '<th>SEO</th>' +
+            '<th>QA</th>' +
           '</tr>' +
-      '</table>'
-    )[0];
+          '<tr>' +
+              '<td>35</td>' +
+              '<td>Publicação flip AN e SOL</td>' +
+              '<td></td>' +
+              '<td></td>' +
+              '<td></td>' +
+              '<td>7</td>' +
+            '</tr>' +
+        '</table>';
+
+  var table = createDOMInMemory(elements);
 
   assertHeadings(table, expectedHeads);
 });
@@ -38,7 +46,7 @@ test('should return headings whithout thead', function(){
 /* Should get the row's headings */
 test('should return headings whith thead', function(){
 
-  var table = $(
+  var elements =
       '<table id="test-table">' +
         '<thead>' +
           '<tr>' +
@@ -60,15 +68,15 @@ test('should return headings whith thead', function(){
             '<td>7</td>' +
           '</tr>' +
         '</tbody>' + 
-      '</table>'
-    )[0];
+      '</table>';
 
+  var table = createDOMInMemory(elements);
   assertHeadings(table, expectedHeads);
 });
 
 // /* Should get the row's headings */
 test('should return headings with td as columns instead of th', function(){
-  var table = $(
+  var elements = 
       '<table id="test-table">' +
         '<tr>' +
           '<td>numero</td>' +
@@ -86,16 +94,16 @@ test('should return headings with td as columns instead of th', function(){
             '<td></td>' +
             '<td>7</td>' +
           '</tr>' +
-      '</table>'
-    )[0];
+      '</table>';
   
+  var table = createDOMInMemory(elements);
   assertHeadings(table, expectedHeads);
 
 });
 
 //  Should convert to JSON 
 test('should convert the html table to json', function() {
-  var table = $(
+  var elements =
       '<table id="test-table">' +
         '<tr>' +
           '<th>numero</th>' +
@@ -129,8 +137,9 @@ test('should convert the html table to json', function() {
             '<td></td>' +
             '<td></td>' +
           '</tr>' +
-      '</table>'
-  )[0];
+      '</table>';
+
+  var table = createDOMInMemory(elements);
 
   var expectedJSON = [{'numero':'35', 'Historias tarefas':'Publicação flip AN e SOL', 'Back':'', 'Front':'', 'SEO':'', 'QA':'7'},
                   {'numero':'35.1', 'Historias tarefas':'Criação da Gmud', 'Back':'7', 'Front':'7', 'SEO':'7', 'QA':'7'},
